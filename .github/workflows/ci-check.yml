@@ -1,0 +1,41 @@
+# This is the name of your workflow
+name: Node.js CI Check
+
+# This controls when the workflow will run
+on:
+  # Triggers the workflow on pull requests targeting the "main" branch
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs
+jobs:
+  # This job is named "lint-code"
+  lint-code:
+    # The type of virtual machine (runner) to run the job on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed
+    steps:
+      # Step 1: Check out your repository's code
+      # "uses" tells the job to use a pre-built action from the marketplace
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          # "with" is how you provide parameters to an action
+          node-version: 20
+          # This speeds up dependency installation
+          cache: 'npm'
+
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        # "npm ci" is a "clean install" command, faster and safer for CI
+        run: npm ci
+
+      # Step 4: Run the linter
+      # This runs the "lint" script defined in your package.json
+      - name: Run linter
+        run: npm run lint
