@@ -1,0 +1,23 @@
+# This is the name of your workflow. It will show up in the "Actions" tab.
+name: Simple Hello World
+
+# This controls when the workflow will run.
+on:
+  # Triggers the workflow on push events for the "main" branch.
+  push:
+    branches: [ main ]
+
+# A workflow run is made of one or more jobs that can run in parallel.
+jobs:
+  # This job is named "hello-job". You can name it anything.
+  hello-job:
+    # The type of virtual machine (runner) to run the job on.
+    # "ubuntu-latest" is a good, fast default.
+    runs-on: ubuntu-latest
+
+    # "steps" are the sequence of tasks that will be executed as part of the job.
+    steps:
+      # Each step can have a name, which is shown in the logs.
+      - name: Say Hello
+        # "run" tells the job to execute a command on the runner's shell.
+        run: echo "Hello, world! My first GitHub Action ran successfully!"
